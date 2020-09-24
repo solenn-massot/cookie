@@ -26,5 +26,22 @@ function btnAction(e){
         nvObj{attrName} = attrValeur;
     })
 
-    
+    let description = e.target.getAttribute('data-cookie');
+
+    if(description === "creer"){
+        createCookie(nvObj.cookieName, nvObj.cookieValue, nvObj.cookieExpire);
+    } else if(description === "toutAfficher"){
+        listCookies();
+    }
+}
+
+function createCookie(name, value, exp){
+
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)};expires=${exp.toUTCString()}`;
+    let info = document.createElement('li');
+    info.innerText = `Your cookie ${name} has been baked !`;
+    affichage.appendChild(info);
+    setTimeout(() => {
+        info.remove();
+    }, 2000)
 }
