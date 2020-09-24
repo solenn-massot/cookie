@@ -10,9 +10,9 @@ const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
 
 
 let day = ('0' + nextWeek).slice(9,11);
-let month = ('0' + (today.getMonth() + 1)).slice(-2);
+let month = ('0' + (nextWeek.getMonth() + 1)).slice(-2);
 let year = today.getFullYear();
-// document.querySelector('input[type=date]').value = `${year}-${month}-${day}`;
+document.querySelector('input[type=date]').value = `${year}-${month}-${day}`;
 
 btns.forEach(btn => {
     btn.addEventListener('click', btnAction);
@@ -36,7 +36,7 @@ function btnAction(e){
     }
 }
 
-function createCookie(name, value){
+function createCookie(name, value, exp){
 
     infoTxt.innerText = "";
     affichage.innerHTML = "";
@@ -65,9 +65,8 @@ function createCookie(name, value){
     const nameCookie = encodeURIComponent(name);
     const valueCookie = encodeURIComponent(value);
 
-    document.cookie =  nameCookie + "=" + valueCookie + ";";
-    var x = document.cookie;
-    console.log(x);
+    document.cookie =  nameCookie + "=" + valueCookie + ";expires=" + exp;
+    console.log(document.cookie);
     let info = document.createElement('li');
     info.innerText = `Your cookie ${name} has been baked !`;
     affichage.appendChild(info);
