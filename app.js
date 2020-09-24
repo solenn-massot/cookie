@@ -2,7 +2,7 @@ const affichage = document.querySelector('.affichage');
 const btns = document.querySelectorAll('button');
 const inputs = document.querySelectorAll('input');
 const infoTxt = document.querySelector('.info-txt')
-let dejaFait = false;
+let done = false;
 
 
 const today =  new Date();
@@ -36,6 +36,28 @@ function btnAction(e){
 }
 
 function createCookie(name, value, exp){
+
+    infoTxt.innerText = "";
+
+    let cookies = document.cookie.split(';');
+    cookies.forEach(cookie => {
+        cookie = cookie.trim();
+        let formateCookie = cookies.split('=');
+        if(formateCookie[0] === encodeURIComponent(name)){
+            done = true;
+        }
+    })
+
+    if(done){
+        info.innerText = "This name already belong to a cookie";
+        done = false;
+    }
+
+
+    if(name.length === 0){
+        infoTxt.innerText = `You can't bake a cookie with no name`;
+        return;
+    }
 
     document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)};expires=${exp.toUTCString()}`;
     let info = document.createElement('li');
